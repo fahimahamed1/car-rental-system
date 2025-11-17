@@ -27,9 +27,9 @@ The **Car Rental System** is a modular, console-based application developed in C
    git clone https://github.com/fahimahamed1/car-rental-system.git
    cd car-rental-system
    ```
-2. Compile the program:  
+2. Clone the repository:  
    ```sh
-  gcc -Iinclude *.c -o carRent
+   gcc -Iinclude *.c -o carRent
    ```
 3. Run the program:  
    ```sh
