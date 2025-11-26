@@ -11,6 +11,7 @@ struct Car cars[10] = {
 };
 
 int carCount = 5;
+
 void viewAllCars() {
     printf("\n--- All Cars ---\n");
     if (carCount == 0) {
@@ -27,8 +28,8 @@ void viewAllCars() {
 void addNewCar() {
     if (carCount < 10) {
         struct Car newCar;
-        newCar.carID = carCount + 1; // Assign the next car ID
-        newCar.available = 1;       // New car is available by default
+        newCar.carID = carCount + 1; 
+        newCar.available = 1;
 
         printf("Enter Car Model: ");
         scanf("%s", newCar.model);
@@ -36,9 +37,8 @@ void addNewCar() {
         printf("Enter Car Year: ");
         scanf("%d", &newCar.year);
 
-        // Add the new car to the array
         cars[carCount] = newCar;
-        carCount++; // Increment carCount AFTER adding the car
+        carCount++;
 
         printf("New car '%s' added successfully!\n", newCar.model);
     } else {
@@ -48,8 +48,10 @@ void addNewCar() {
 
 void removeCar() {
     int carID;
-    printf("Enter the Car ID to remove: ");
+    printf("Enter the Car ID to remove (or 0 to go back): ");
     scanf("%d", &carID);
+
+    if (carID == 0) return; // Back option
 
     int index = -1;
     for (int i = 0; i < carCount; i++) {
@@ -72,36 +74,58 @@ void removeCar() {
     printf("Car ID %d removed successfully.\n", carID);
 }
 
-void rentCar()
-{
+void rentCar() {
+    printf("\n--- Available Cars ---\n");
+    int availableCount = 0;
+    for (int i = 0; i < carCount; i++) {
+        if (cars[i].available) {
+            printf("Car ID: %d, Model: %s, Year: %d\n", cars[i].carID, cars[i].model, cars[i].year);
+            availableCount++;
+        }
+    }
+    if (availableCount == 0) {
+        printf("No cars available for rent.\n");
+        return;
+    }
+
     int carID;
-    printf("Enter the Car ID you want to rent: ");
+    printf("Enter the Car ID you want to rent (or 0 to go back): ");
     scanf("%d", &carID);
 
-    if (carID >= 1 && carID <= carCount && cars[carID - 1].available)
-    {
+    if (carID == 0) return;
+
+    if (carID >= 1 && carID <= carCount && cars[carID - 1].available) {
         cars[carID - 1].available = 0;
         printf("You have successfully rented '%s'.\n", cars[carID - 1].model);
-    }
-    else
-    {
+    } else {
         printf("Sorry, the car is either not available or the ID is invalid.\n");
     }
 }
 
-void returnCar()
-{
+void returnCar() {
+    printf("\n--- Rented Cars ---\n");
+    int rentedCount = 0;
+    for (int i = 0; i < carCount; i++) {
+        if (!cars[i].available) {
+            printf("Car ID: %d, Model: %s, Year: %d\n", cars[i].carID, cars[i].model, cars[i].year);
+            rentedCount++;
+        }
+    }
+    if (rentedCount == 0) {
+        printf("No cars are currently rented.\n");
+        return;
+    }
+
     int carID;
-    printf("Enter the Car ID you want to return: ");
+    printf("Enter the Car ID you want to return (or 0 to go back): ");
     scanf("%d", &carID);
 
-    if (carID >= 1 && carID <= carCount && !cars[carID - 1].available)
-    {
+    if (carID == 0) return;
+
+    if (carID >= 1 && carID <= carCount && !cars[carID - 1].available) {
         cars[carID - 1].available = 1;
         printf("You have successfully returned '%s'.\n", cars[carID - 1].model);
-    }
-    else
-    {
+    } else {
         printf("Sorry, either the car ID is invalid or the car was not rented.\n");
     }
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "include/functions.h"
 
 #define ADMIN_PASSWORD "fahim"
@@ -13,18 +14,14 @@ int isAdminLogin() {
 
         int i = 0;
         while (password[i] != '\0' && ADMIN_PASSWORD[i] != '\0') {
-            if (password[i] != ADMIN_PASSWORD[i]) {
-                break;
-            }
+            if (password[i] != ADMIN_PASSWORD[i]) break;
             i++;
         }
 
-        if (password[i] == '\0' && ADMIN_PASSWORD[i] == '\0') {
-            return 1;
-        } else {
-            printf("Incorrect password. Please try again.\n");
-            retries--;
-        }
+        if (password[i] == '\0' && ADMIN_PASSWORD[i] == '\0') return 1;
+
+        printf("Incorrect password. Please try again.\n");
+        retries--;
     }
 
     printf("You have entered the incorrect password too many times.\n");
@@ -47,6 +44,8 @@ void adminMenu() {
                 addNewCar();
                 break;
             case 2:
+                printf("\n--- Current Cars ---\n");
+                viewAllCars();
                 removeCar();
                 break;
             case 3:
@@ -54,6 +53,7 @@ void adminMenu() {
                 break;
             case 4:
                 printf("Logging out from Admin Menu.\n");
+                system(CLEAR);
                 break;
             default:
                 printf("Invalid choice. Please try again.\n");
