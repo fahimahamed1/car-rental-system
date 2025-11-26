@@ -2,7 +2,7 @@
 #include "include/functions.h"
 
 int main() {
-    int choice; //declared veriable
+    int choice; 
     
     do {
         printf("\n--- Car Rental System ---\n");
