@@ -1,16 +1,22 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+// Cross-platform console clear
+#ifdef _WIN32
+    #define CLEAR "cls"
+#else
+    #define CLEAR "clear"
+#endif
+
 // Define the Car structure
-struct Car
-{
+struct Car {
     int carID;
     char model[20];
     int year;
     int available;
 };
 
-// Declare the external array of cars
+// Declare external array of cars and count
 extern struct Car cars[10];
 extern int carCount;
 
